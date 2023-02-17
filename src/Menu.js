@@ -225,14 +225,14 @@ export default function Menu(props) {
       style={{
         borderBottomColor: '#dddddd',
         borderBottomWidth: '1',
-        marginBottom: '10%',
-        marginTop: '10%',
+        marginBottom: '8%',
+        marginTop: '8%',
       }}
     />
   )
 
   const Title = (props) => (
-    <Text style={{ textAlign: 'center', fontSize: '18', fontWeight: '700', marginBottom: '10%' }}>
+    <Text style={{ textAlign: 'center', fontSize: '18', fontWeight: '700', marginBottom: '5%' }}>
       {props.text}
     </Text>
   )
@@ -275,13 +275,13 @@ export default function Menu(props) {
   }
 
   return (
-    <View>
+    <View style={{ flexDirection: 'colomn' }}>
       {RenameModal(changingRecordingName)}
       <Pressable
         onPress={props.openRecordingModal}
         style={{
           color: 'white',
-          marginTop: '25%',
+          marginTop: '20%',
           marginLeft: '10%',
           marginRight: '10%',
           backgroundColor: '#ffa900',
@@ -291,13 +291,13 @@ export default function Menu(props) {
         }}
       >
         <Fontisto name={'mic'} size={30} style={{ color: 'white', width: '20%' }} on />
-        <Text style={{ fontSize: '18', paddingTop: '3%', color: 'white' }}>Record new</Text>
+        <Text style={{ fontSize: 18, paddingTop: '2%', color: 'white' }}>Record new</Text>
       </Pressable>
 
       <Separator />
 
       <Title text="All recordings" />
-      <View style={{ height: '45%' }}>
+      <View style={{ height: '52%', alignContent: 'flex-end' }}>
         {props && props.data && props.data.length > 0 ? (
           <SwipeListView
             useNativeDriver={true}
@@ -318,13 +318,17 @@ export default function Menu(props) {
         )}
       </View>
 
-      <Separator />
-      <View>
+      <View
+        style={{
+          marginBottom: 0,
+          marginTop: 'auto',
+        }}
+      >
+        <Separator />
         <Title text="Color scheme:" />
         <View
           style={{
             flexDirection: 'row',
-            height: '15%',
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -333,8 +337,8 @@ export default function Menu(props) {
             style={{
               borderRadius:
                 Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-              width: Dimensions.get('window').width * 0.13,
-              height: Dimensions.get('window').width * 0.13,
+              width: 40,
+              height: 40,
               backgroundColor: 'white',
               borderColor: '#FEBD3C',
               borderWidth: '2',
@@ -349,8 +353,8 @@ export default function Menu(props) {
             style={{
               borderRadius:
                 Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-              width: Dimensions.get('window').width * 0.13,
-              height: Dimensions.get('window').width * 0.13,
+              width: 40,
+              height: 40,
               backgroundColor: 'black',
               borderColor: 'white',
               borderWidth: '2',

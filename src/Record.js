@@ -227,8 +227,8 @@ const styles = StyleSheet.create({
     borderRadius: '20%',
     paddingLeft: '7%',
     paddingRight: '7%',
-    marginTop: '45%',
-    marginBottom: '60%',
+    marginTop: '30%',
+    marginBottom: '55%',
     marginLeft: '7%',
     marginRight: '7%',
     fontSize: 16,
@@ -237,8 +237,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
-    height: '5%',
-    paddingTop: '5%',
+    minHeight: '5%',
+    paddingTop: '4%',
   },
   input: {
     width: '80%',
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   },
   timer: {
     color: '#D0312D',
-    paddingTop: '3%',
+    paddingTop: '2%',
     fontSize: 18,
   },
   deleteOption: {
@@ -284,10 +284,10 @@ const styles = StyleSheet.create({
   },
   modalContainer: { backgroundColor: '#00000050', height: '100%', width: '100%' },
   tip: {
-    height: '33%',
+    height: '32%',
     width: '100%',
     backgroundColor: '#eeeeee',
-    padding: '5%',
+    padding: '6%',
     borderRadius: '15%',
   },
   bodyContainer: {
