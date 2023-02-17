@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Home } from './src/Home.js'
-import { Main } from './src/Main.js'
 import * as SQLite from 'expo-sqlite'
 
 const db = SQLite.openDatabase('db.testDb') // returns Database object
