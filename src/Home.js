@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, TouchableHighlight, Modal, TextInput } from 're
 import { Audio } from 'expo-av'
 import { StatusBar } from 'expo-status-bar'
 import { Fontisto, Octicons } from '@expo/vector-icons'
+import Record from './Record'
+import Timer from './Timer'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
+import SideMenu from 'react-native-side-menu'
+import Menu from './Menu'
 
 const colors = {
   light: {
@@ -56,7 +61,6 @@ export const Home = (props) => {
       height: 200,
       borderColor: colorScheme.playButtonFrame,
       borderWidth: 4,
-      // borderStyle: 'dashed',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
@@ -166,6 +170,14 @@ export const Home = (props) => {
     }
   }, [props.data])
 
+  const openRecordingModal = () => {
+    if (isPlaying) {
+      stopPlaying()
+    }
+    setisModalOpen(!isModalOpen)
+    setIsMenuOpen(false)
+  }
+
   const TopBar = () => {
     return (
       <View
@@ -208,63 +220,63 @@ export const Home = (props) => {
   }, [props.data])
 
   return (
-    // <SideMenu
-    //   menu={
-    //     <Menu
-    //       data={props.data}
-    //       openRecordingModal={openRecordingModal}
-    //       deleteRecord={props.deleteRecord}
-    //       updateRecord={props.updateRecord}
-    //       setisModalOpen={setisModalOpen}
-    //       setIsMenuOpen={setIsMenuOpen}
-    //       setCurrentSound={setCurrentSound}
-    //       stopPlaying={stopPlaying}
-    //       currentSound={currentSound}
-    //       setColorSet={setColorSet}
-    //       colorScheme={colorScheme}
-    //     />
-    //   }
-    //   isOpen={isMenuOpen}
-    //   menuPosition={'right'}
-    //   onChange={(isOpen) => setIsMenuOpen(isOpen)}
-    // >
-    <View style={styles.container}>
-      <TopBar />
-      {/* {isModalOpen && (
+    <SideMenu
+      menu={
+        <Menu
+          data={props.data}
+          openRecordingModal={openRecordingModal}
+          deleteRecord={props.deleteRecord}
+          updateRecord={props.updateRecord}
+          setisModalOpen={setisModalOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          setCurrentSound={setCurrentSound}
+          stopPlaying={stopPlaying}
+          currentSound={currentSound}
+          setColorSet={setColorSet}
+          colorScheme={colorScheme}
+        />
+      }
+      isOpen={isMenuOpen}
+      menuPosition={'right'}
+      onChange={(isOpen) => setIsMenuOpen(isOpen)}
+    >
+      <View style={styles.container}>
+        <TopBar />
+        {isModalOpen && (
           <Record
             newRecord={props.newRecord}
             visible={isModalOpen}
             setisModalOpen={setisModalOpen}
           />
-        )} */}
+        )}
 
-      <View style={styles.menu}>
-        <Header />
+        <View style={styles.menu}>
+          <Header />
 
-        {/* <Pressable
-          onPress={() => {
-            setIsMenuOpen(!isMenuOpen)
-          }}
-          style={styles.menuIconContainer}
-        >
-          <Octicons name={'triangle-right'} size={40} style={styles.menuIcon} on />
-        </Pressable> */}
-      </View>
-      <StatusBar style="light" />
-
-      <TouchableHighlight
-        onPress={handlePlayPause}
-        underlayColor={colorScheme.recordButtonBackground}
-        style={styles.button}
-      >
-        <View style={styles.innerContainer}>
-          <Fontisto name={!isPlaying ? 'play' : 'pause'} size={60} style={styles.icon} on />
+          <Pressable
+            onPress={() => {
+              setIsMenuOpen(!isMenuOpen)
+            }}
+            style={styles.menuIconContainer}
+          >
+            <Octicons name={'triangle-right'} size={40} style={styles.menuIcon} on />
+          </Pressable>
         </View>
-      </TouchableHighlight>
+        <StatusBar style="light" />
 
-      {/* <Timer isPlay={isPlaying} currentSound={currentSound} colorScheme={colorScheme} /> */}
-    </View>
-    // </SideMenu>
+        <TouchableHighlight
+          onPress={handlePlayPause}
+          underlayColor={colorScheme.recordButtonBackground}
+          style={styles.button}
+        >
+          <View style={styles.innerContainer}>
+            <Fontisto name={!isPlaying ? 'play' : 'pause'} size={60} style={styles.icon} on />
+          </View>
+        </TouchableHighlight>
+
+        <Timer isPlay={isPlaying} currentSound={currentSound} colorScheme={colorScheme} />
+      </View>
+    </SideMenu>
   )
 }
 
