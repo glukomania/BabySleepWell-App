@@ -146,10 +146,6 @@ export default function Menu(props) {
   const [changingRecordingName, setChangingRecordingName] = useState(null)
   const [changingRecordingId, setChangingRecordingId] = useState(null)
 
-  const onRowDidOpen = (rowKey) => {
-    console.log('This row opened', rowKey)
-  }
-
   const onDeletePressed = (id) => {
     props.deleteRecord(id)
   }
@@ -180,7 +176,6 @@ export default function Menu(props) {
         onPress={() => onRecordPress(data.item)}
         style={styles.rowFront}
         underlayColor={'#AAA'}
-        useNativeDriver={true}
       >
         <View>
           <Text
@@ -311,7 +306,6 @@ export default function Menu(props) {
             previewOpenValue={-40}
             previewOpenDelay={3000}
             keyExtractor={(item) => item.id}
-            onRowDidOpen={onRowDidOpen}
           />
         ) : (
           <Text style={{ textAlign: 'center' }}>no records yet</Text>

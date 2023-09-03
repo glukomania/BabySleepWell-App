@@ -89,6 +89,7 @@ export const Home = (props) => {
   const [isModalOpen, setisModalOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentSound, setCurrentSound] = useState(placeholder)
+  const [permissions, setPermission] = useState(undefined)
 
   const placeholder = {
     label: 'Default white noise',
@@ -133,8 +134,6 @@ export const Home = (props) => {
         AudioPlayer.current.playAsync()
         AudioPlayer.current.setIsLoopingAsync(1000)
         setIsPlaying(true)
-      } else {
-        console.log('recording is not loaded')
       }
     } catch (error) {
       console.log('Error while playing: ', error)
@@ -174,8 +173,46 @@ export const Home = (props) => {
     if (isPlaying) {
       stopPlaying()
     }
-    setisModalOpen(!isModalOpen)
     setIsMenuOpen(false)
+
+    if (permissions === true) {
+      setisModalOpen(!isModalOpen)
+    } else if (permissions === undefined) {
+      getPermission()
+    } else {
+      alert(
+        `You haven't granted access to microphone. You may change it in settings of your phone.`,
+      )
+    }
+  }
+
+  useCallback(() => {
+    if (permissions === true) {
+      setisModalOpen(!isModalOpen)
+    } else if (permissions === false) {
+      alert('no access to microphone, plz check ')
+    } else {
+      getPermission()
+    }
+  }, [permissions])
+
+  const getPermission = async () => {
+    try {
+      const getAudioPerm = await Audio.requestPermissionsAsync()
+
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+      })
+      if (getAudioPerm.status === 'granted') {
+        setPermission(true)
+        setisModalOpen(!isModalOpen)
+      } else {
+        setPermission(false)
+      }
+    } catch (error) {
+      console.log('permisssions error: ', error)
+    }
   }
 
   const TopBar = () => {
@@ -239,6 +276,7 @@ export const Home = (props) => {
       isOpen={isMenuOpen}
       menuPosition={'right'}
       onChange={(isOpen) => setIsMenuOpen(isOpen)}
+      useNativeDriver={true}
     >
       <View style={styles.container}>
         <TopBar />

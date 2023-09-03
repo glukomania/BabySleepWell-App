@@ -40,39 +40,19 @@ export const Record = (props) => {
 
   async function startRecording() {
     console.log('tap start')
+
     try {
-      // Check if user has given the permission to record
-      console.log('get permissions')
+      // Prepare the Audio Recorder
+      console.log('Starting recording.')
 
-      const getAudioPerm = await Audio.requestPermissionsAsync()
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: true,
-        playsInSilentModeIOS: true,
-      })
+      await AudioRecorder.current.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY)
 
-      if (getAudioPerm.granted === true) {
-        console.log('permissions are ok')
-        try {
-          // Prepare the Audio Recorder
-          console.log('Starting recording.')
-
-          await AudioRecorder.current.prepareToRecordAsync(
-            Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY,
-          )
-
-          // Start recording
-          await AudioRecorder.current.startAsync()
-          setIsRecording(true)
-          console.log('Recording has started.')
-        } catch (error) {
-          console.log(error)
-        }
-      } else {
-        // If user has not given the permission to record, then ask for permission
-        getPermission()
-      }
+      // Start recording
+      await AudioRecorder.current.startAsync()
+      setIsRecording(true)
+      console.log('Recording has started.')
     } catch (error) {
-      console.log('error start: ', error)
+      console.log('recording start failed', error)
     }
   }
 
